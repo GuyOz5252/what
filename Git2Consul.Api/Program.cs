@@ -5,6 +5,8 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddGit2ConsulEnvironments(builder.Configuration);
+
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());

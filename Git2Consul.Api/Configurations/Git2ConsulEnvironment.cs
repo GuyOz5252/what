@@ -1,4 +1,4 @@
-namespace Git2Consul.ApplicationCore.Entities;
+namespace Git2Consul.Api.Configurations;
 
 public class Git2ConsulEnvironment
 {

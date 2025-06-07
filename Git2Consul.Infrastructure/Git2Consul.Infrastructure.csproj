@@ -10,8 +10,4 @@
       <ProjectReference Include="..\Git2Consul.ApplicationCore\Git2Consul.ApplicationCore.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Consul" Version="1.7.14.7" />
-    </ItemGroup>
-
 </Project>

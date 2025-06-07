@@ -7,8 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Consul.AspNetCore" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1"/>
         <PackageReference Include="Swashbuckle.AspNetCore" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Git2Consul.ApplicationCore\Git2Consul.ApplicationCore.csproj" />
+      <ProjectReference Include="..\Git2Consul.Infrastructure\Git2Consul.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
