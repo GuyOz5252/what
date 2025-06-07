@@ -1,6 +1,7 @@
 using Consul;
 using Git2Consul.Api.Configurations;
 using Git2Consul.Api.Exceptions;
+using Git2Consul.ApplicationCore.Abstract;
 using Git2Consul.Infrastructure;
 
 namespace Git2Consul.Api.Extensions;
@@ -36,7 +37,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection serviceCollection,
         string key,
         Action<ConsulClientConfiguration> config)
-    where T : IKeyedServiceProvider
+    where T : IKeyValueRepository
     {
         // TODO: Use T
         var client = new ConsulClient(config);
