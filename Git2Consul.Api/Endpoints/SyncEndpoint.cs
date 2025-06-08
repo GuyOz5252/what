@@ -9,10 +9,15 @@ public class SyncEndpoint : IEndpoint
     {
         app.MapPost("sync", async (
                 string environmentName,
+                IServiceProvider serviceProvider,
                 ISyncService syncService,
                 CancellationToken cancellationToken) =>
             {
-                await syncService.SyncAsync(environmentName, cancellationToken: cancellationToken);
+                await syncService.SyncAsync(
+                    environmentName,
+                    serviceProvider.GetRequiredKeyedService<IKeyValueRepository>($"{environmentName}-Git"),
+                    serviceProvider.GetRequiredKeyedService<IKeyValueRepository>($"{environmentName}-Consul"),
+                    cancellationToken);
                 return Results.Ok();
             })
             .WithTags(Tags.Git2Consul);

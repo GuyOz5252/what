@@ -1,22 +1,18 @@
 using Consul;
 using Consul.AspNetCore;
 using Git2Consul.Api.Configurations;
-using Git2Consul.Api.Exceptions;
-using Git2Consul.ApplicationCore.Abstract;
 using Git2Consul.Infrastructure;
+using static Git2Consul.Api.DependencyInjection;
 
 namespace Git2Consul.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    private const string Git2ConsulEnvironments = "Git2ConsulEnvironments";
-
     public static IServiceCollection AddGit2ConsulEnvironments(this IServiceCollection serviceCollection,
         IConfiguration configuration)
     {
-        (configuration
-                .GetSection(Git2ConsulEnvironments)
-                .Get<List<Git2ConsulEnvironment>>() ?? throw new ConfigurationException(Git2ConsulEnvironments))
+        configuration
+            .GetOrThrow<List<Git2ConsulEnvironment>>(Git2ConsulEnvironments)
             .ForEach(git2ConsulEnvironment =>
             {
                 serviceCollection.AddConsul(git2ConsulEnvironment.Name, config =>
@@ -36,7 +32,7 @@ public static class ServiceCollectionExtensions
                     (serviceProvider, _) => new GitKeyValueRepository(
                         git2ConsulEnvironment.GitRepositoryUrl,
                         git2ConsulEnvironment.Name,
-                        serviceProvider.GetRequiredKeyedService<string>("BaseLocalPath")));
+                        serviceProvider.GetRequiredKeyedService<string>(BaseLocalPath)));
             });
 
         return serviceCollection;
