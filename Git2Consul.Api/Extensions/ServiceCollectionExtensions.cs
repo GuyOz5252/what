@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
                     config.Address = new Uri(git2ConsulEnvironment.ConsulAddress);
                     config.Token = git2ConsulEnvironment.ConsulAclToken;
                 });
-                serviceCollection.AddKeyedTransient<ConsulKeyValueRepository>(
+                serviceCollection.AddKeyedScoped<ConsulKeyValueRepository>(
                     git2ConsulEnvironment.Name,
                     (serviceProvider, _) =>
                     {
