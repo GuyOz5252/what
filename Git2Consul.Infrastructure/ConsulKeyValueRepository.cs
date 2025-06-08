@@ -1,12 +1,22 @@
+using System.Text;
+using Consul;
 using Git2Consul.ApplicationCore.Abstract;
 
 namespace Git2Consul.Infrastructure;
 
 public class ConsulKeyValueRepository : IKeyValueRepository
 {
-    public Task<string> GetAsync(string key, CancellationToken cancellationToken = default)
+    private readonly ConsulClient _consulClient;
+
+    public ConsulKeyValueRepository(ConsulClient consulClient)
     {
-        throw new NotImplementedException();
+        _consulClient = consulClient;
+    }
+
+    public async Task<string> GetAsync(string key, CancellationToken cancellationToken = default)
+    {
+        var result = await _consulClient.KV.Get(key, cancellationToken);
+        return Encoding.UTF8.GetString(result.Response.Value);
     }
 
     public Task<List<KeyValuePair<string, string>>> ListAsync(string prefix = "", CancellationToken cancellationToken = default)
