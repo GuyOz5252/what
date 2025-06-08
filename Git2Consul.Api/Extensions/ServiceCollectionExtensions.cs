@@ -21,7 +21,7 @@ public static class ServiceCollectionExtensions
             {
                 serviceCollection.AddConsul(git2ConsulEnvironment.Name, config =>
                 {
-                    config.Address = new Uri(git2ConsulEnvironment.GitRepositoryUrl);
+                    config.Address = new Uri(git2ConsulEnvironment.ConsulAddress);
                     config.Token = git2ConsulEnvironment.ConsulAclToken;
                 });
                 serviceCollection.AddKeyedTransient<ConsulKeyValueRepository>(
