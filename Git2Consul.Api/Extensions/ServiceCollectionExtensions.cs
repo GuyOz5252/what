@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
         IConfiguration configuration)
     {
         configuration
-            .GetOrThrow<List<Git2ConsulEnvironment>>(Git2ConsulEnvironments)
+            .GetByPath<List<Git2ConsulEnvironment>>(Git2ConsulEnvironments)
             .ForEach(git2ConsulEnvironment =>
             {
                 serviceCollection.AddConsul(git2ConsulEnvironment.Name, config =>

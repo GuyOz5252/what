@@ -10,10 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddKeyedSingleton(
     AppName,
-    builder.Configuration.GetOrThrow<string>(AppName));
+    builder.Configuration.GetByPath<string>(AppName));
 builder.Services.AddKeyedSingleton(
     BaseLocalPath,
-    builder.Configuration.GetOrThrow<string>(BaseLocalPath));
+    builder.Configuration.GetByPath<string>(BaseLocalPath));
 builder.Services.AddGit2ConsulEnvironments(builder.Configuration);
 builder.Services.AddScoped<ISyncService, SyncService>();
 
